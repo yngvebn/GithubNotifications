@@ -63,7 +63,7 @@ function MainController($q, $scope, $timeout, $window, $http, PullRequest){
 		restore_options().then(getGithubData, githubDataFailed);
 	}
 	init();
-
+    
 	function githubDataFailed(){
 		vm.config.ok = false;
 			if(!chrome || !chrome.browserAction) return;
@@ -82,7 +82,13 @@ function MainController($q, $scope, $timeout, $window, $http, PullRequest){
 				vm.count = count;
 			}
 			else{
-				chrome.browserAction.setBadgeText({text: count.toString() });
+                var countText = count > 0 ? count.toString() : "";
+				chrome.browserAction.setBadgeText({text: countText });
+                var color ="#4CAF50";
+                if(countText < 4) color = "#4CAF50";
+                if(countText >= 4) color = "#FF9800";
+                if(countText >= 9) color = "#F44336";
+                chrome.browserAction.setBadgeBackgroundColor({ color: color });
 			}
 
 			vm.data.pullRequests = response.data.items.map(PullRequest.load)
@@ -94,7 +100,7 @@ function MainController($q, $scope, $timeout, $window, $http, PullRequest){
 		}
 		currentTimeout = $timeout(function(){
 			getGithubData(vm.config)
-		}, 5 * 60000);
+		}, 1 * 60000);
 	}
 
 	if(chrome && chrome.runtime && chrome.runtime.onMessage){
