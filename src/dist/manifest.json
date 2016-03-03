@@ -3,12 +3,10 @@
 
   "name": "Github Notifications",
   "description": "This extension displays an icon in Chrome indicating your open pull-requests",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Yngve Bakken Nilsen",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "permissions": [
-       "http://*/*"
-  ],
+  "permissions": [],
   "icons": { "16": "assets/icon_16.png",
            "48": "assets/icon_48.png",
           "128": "assets/icon_128.png" },
@@ -16,14 +14,7 @@
   "browser_action": {
     "default_popup": "index.html"
   },
-  "content_scripts": [
-  {
-    "matches": ["http://*/app" ],
-    "exclude_matches": ["http://*/app#/projects"],
-    "js": ["js/vendor.js", "js/app.js"],
-    "css": ["css/main.css"]
-  }],
-  "web_accessible_resources": [ "css/main.css" ],
+  "web_accessible_resources": [ "css/main.css", "js/vendor.js", "js/app.js" ],
   "background": {
 	"page": "background.html"
    }
