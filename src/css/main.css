@@ -1,0 +1,200 @@
+
+body{
+	font-family: arial, "sans-serif";
+	width: 400px;
+}
+ul{
+	list-style-type: none;
+	border: 1px solid #e5e5e5;
+	
+	-webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+
+ul:first-child{
+	border-radius: 3px 3px 0 0;
+	border: 1px solid #e5e5e5;
+	border-bottom: none;
+}
+
+ul:last-child{
+	border-radius: 0 0 3px 3px;
+}
+
+
+li{
+	padding: 0.5em 1em;
+	border-top: 1px solid #e5e5e5;
+}
+
+li:first-child{
+	border-top: none;
+}
+
+li.pull-request:hover{
+	background-color: #f8f8f8;
+}
+
+.pull-request {
+	cursor: pointer;
+}
+
+.repository__name{
+	background-color: #f8f8f8;
+	font-weight: bold;
+
+}
+
+.pull-request__icon{
+	float: left;
+	margin-right: 0.5em;
+}
+
+.pull-request__icon img{
+	height: 16px;
+	width: 16px;
+	border: none;
+}
+
+.pull-request__add-info{
+	float: right;
+
+}
+
+.pull-request__add-info img{
+	height: 32px;
+}
+
+.pull-request__info{
+	margin-left: 1em;
+	float: left;
+}
+
+.pull-request__title{
+	font-weight: bold;
+}
+
+.pull-request__summary{
+
+}
+
+.pull-request__number{
+
+}
+
+.pull-request__opened{
+
+}
+
+.pull-request__openedBy{
+
+}
+
+body.options{
+	width: 100%;
+}
+
+.options-wrapper{
+	position:relative;
+	width: 600px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.options-input{
+	margin: 1em 0;
+}
+
+.options-help{
+	color: gray;
+	margin-bottom: 1em;
+	font-style: italic;
+}
+
+.options-input label{
+	display: block;
+	margin: 0.3em 0;
+	text-transform: uppercase;
+}
+
+.options-input input{
+	padding: 0.5em;
+	width: 80%;
+}
+
+.options-button button{
+	cursor: pointer;
+	font-size: 1.2em;
+	padding: 0.5em 1em;
+	background-color: #2196F3;
+	border: none;
+	border-bottom: 1px solid #1565C0;
+	color: white;
+	text-transform: uppercase;
+}
+
+.options-button button:hover{
+	background-color: #64B5F6;
+}
+
+
+.options-button label{
+	margin-left: 1em;
+	transition: 0.3s all ease;
+}
+
+.options-button label.ng-enter{
+	opacity: 0;
+}
+.options-button label.ng-enter-active{
+	opacity: 1;	
+}
+.options-button label.ng-leave{
+	opacity: 1;		
+}
+.options-button label.ng-leave-active{
+	opacity: 0;	
+}
+
+.card {
+	padding: 2em;
+  background: #fff;
+  border-radius: 2px;
+  display: block;
+}
+
+.card-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.2s ease-in-out;
+}
+
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
