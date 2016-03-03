@@ -11,7 +11,6 @@
 <div class="options-wrapper card card-1">
 	<h1>Options</h1>
 	<div ng-controller="Options as ctrl">
-		<div class="options-input"><label>Github Username:</label><input type="text" ng-model="ctrl.config.username" /></div>
 		<div  class="options-input"><label>Github Personal access token *:</label><input type="text" ng-model="ctrl.config.token" /></div>
 		<div class="options-help">* Go to <a href="https://github.com/settings/tokens/new" target="_blank">New personal access token</a> on GitHub, and create a token with "repo" and "user" checked. Paste the token in the box above when you're done</div>
 		<div class="options-button"><button ng-click="ctrl.save()">Save</button><label class="hidden-message" ng-if="ctrl.displayMessage">Settings saved!</label></div>

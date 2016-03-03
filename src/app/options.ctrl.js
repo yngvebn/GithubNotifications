@@ -1,4 +1,4 @@
-function Options($timeout){
+function Options($http, $timeout){
 	var vm = this;
 	vm.displayMessage = false;
 	vm.config = {
@@ -7,7 +7,10 @@ function Options($timeout){
 	}
 
 	vm.save = function(){
-		chrome.runtime.sendMessage({ config: vm.config }, function(response){ 
+        $http.defaults.headers.common.Authorization = 'TOKEN '+ vm.config.token;
+        $http.get("https://api.github.com/user").then(function(response){
+          vm.config.username = response.data.login;
+          chrome.runtime.sendMessage({ config: vm.config }, function(response){ 
 			$timeout(function(){
 				vm.displayMessage = true;
 			})
@@ -15,7 +18,9 @@ function Options($timeout){
 			$timeout(function(){
 				vm.displayMessage = false;
 			}, 3000);
-		});
+		});  
+        });
+		
 	}
 
 	// Restores select box state to saved value from localStorage.
@@ -36,6 +41,6 @@ function Options($timeout){
 	restore_options();
 }
 
-Options.$inject = ['$timeout'];
+Options.$inject = ['$http', '$timeout'];
 
 angular.module('app').controller('Options', Options);
