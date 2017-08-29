@@ -1,0 +1,19 @@
+<md-list>
+  <h3 md-subheader>Folders</h3>
+  <md-list-item *ngFor="let pr of pullRequests">
+    <div md-card-avatar class="pull-request__avatar" [style.background-image]="'url('+pr.user.avatar_url+')'"></div>
+    <!-- 
+    <md-icon md-list-icon>folder</md-icon> -->
+    <div class="mat-list-text">
+      <h4 md-line>{{pr.title}}</h4>
+      <p md-line> #{{pr.number}} opened by {{pr.user.login}} at {{pr.created_at | date:'medium'}} </p>
+    </div>
+  </md-list-item>
+  <!-- <md-divider></md-divider>
+    <h3 md-subheader>Notes</h3>
+    <md-list-item *ngFor="let note of notes">
+      <md-icon md-list-icon>note</md-icon>
+      <h4 md-line>{{note.name}}</h4>
+      <p md-line> {{note.updated | date}} </p>
+    </md-list-item> -->
+</md-list>

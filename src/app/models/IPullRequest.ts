@@ -1,8 +1,14 @@
 export interface IPullRequest {
+    id: string;
     title: string;
     number: number;
-    createdAt: Date;
+    created_at: Date;
+    pull_request: { url: string};
     url: string;
-    repository: { id: string, name: string };
+    base: { repo: { id: string, name: string } };
     openedBy: { name: string, avatar: string };
+    user: {
+        avatar_url: string;
+        login: string;
+    }
 }

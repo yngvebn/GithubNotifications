@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@import "theme";
+@import "utilities";
 
 body{
 	font-family: arial, "sans-serif";
-	width: 400px;
+	width: 600px;
 }
 ul{
 	list-style-type: none;
