@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
   
-    "name": "Github Notifications",
+    "name": "Github Notifications BETA",
     "description": "This extension displays an icon in Chrome indicating your open pull-requests",
     "version": "1.0.3",
     "author": "Yngve Bakken Nilsen",
@@ -14,7 +14,7 @@
     "browser_action": {
       "default_popup": "index.html"
     },
-    "web_accessible_resources": [ "css/main.css", "js/vendor.js", "js/app.js" ],
+    "web_accessible_resources": [ "inline.bundle.js", "main.bundle.js", "polyfills.bundle.js", "styles.bundle.js", "vendor.bundle.js" ],
     "background": {
       "page": "background.html"
      }
