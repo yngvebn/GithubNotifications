@@ -1,5 +1,5 @@
 "use strict";
-chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	if(request['config']){
 		 /*localStorage['_octopus_extension_3'] = JSON.stringify(request.config);*/
 	  }
@@ -8,9 +8,9 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 	 	sendResponse(JSON.parse(localStorage['_octopus_extension_3'])[request['localStorage']]);
 	 	}
 	 	else{
-	 		sendResponse(JSON.parse(localStorage['_octopus_extension_3']));	
+	 		sendResponse(JSON.parse(localStorage['_octopus_extension_3']));
 	 	}*/
 	 }
 });
 
-chrome.browserAction.setBadgeText({text:"?"});
+chrome.action.setBadgeText({text:"?"});

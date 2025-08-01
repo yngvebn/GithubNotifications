@@ -15,7 +15,7 @@ function MainController($q, $scope, $timeout, $window, $http, PullRequest){
 		else{
 			chrome.tabs.create({url: pull.url });
 		}
-		
+
 	}
 
 	function reGroup(){
@@ -28,7 +28,7 @@ function MainController($q, $scope, $timeout, $window, $http, PullRequest){
 	}
 
 	$scope.$watch(function(){
-		return vm.data.pullRequests;	
+		return vm.data.pullRequests;
 	}, function(){
 		reGroup();
 	}, true)
@@ -57,19 +57,19 @@ function MainController($q, $scope, $timeout, $window, $http, PullRequest){
 				  	reject();
 				  }
 		});
-		  
+
 	}
 	function init(){
 		restore_options().then(getGithubData, githubDataFailed);
 	}
 	init();
-    
+
 	function githubDataFailed(){
 		vm.config.ok = false;
-			if(!chrome || !chrome.browserAction) return;
-			
-			chrome.browserAction.setBadgeText({text: "?"});
-			
+			if(!chrome || !chrome.action) return;
+
+			chrome.action.setBadgeText({text: "?"});
+
 	}
 
 	function getGithubData(config){
@@ -78,23 +78,23 @@ function MainController($q, $scope, $timeout, $window, $http, PullRequest){
 	 	$http.defaults.headers.common.Authorization = 'TOKEN '+config.token;
 		$http.get(url).then(function(response){
 			count = response.data.total_count;
-			if(!chrome || !chrome.browserAction){
+			if(!chrome || !chrome.action){
 				vm.count = count;
 			}
 			else{
                 var countText = count > 0 ? count.toString() : "";
-				chrome.browserAction.setBadgeText({text: countText });
+				chrome.action.setBadgeText({text: countText });
                 var color ="#4CAF50";
                 if(countText < 4) color = "#4CAF50";
                 if(countText >= 4) color = "#FF9800";
                 if(countText >= 9) color = "#F44336";
-                chrome.browserAction.setBadgeBackgroundColor({ color: color });
+                chrome.action.setBadgeBackgroundColor({ color: color });
 			}
 
 			vm.data.pullRequests = response.data.items.map(PullRequest.load)
-										
-			
-		});	
+
+
+		});
 		if(currentTimeout){
 			$timeout.cancel(currentTimeout);
 		}
@@ -128,7 +128,7 @@ if(chrome && chrome.runtime && chrome.runtime.onMessage){
 	if(request['config']){
 		 localStorage['_github_pullrequests'] = JSON.stringify(request.config);
 	}
-	 
-	chrome.browserAction.setBadgeText({text:"?"});
+
+	chrome.action.setBadgeText({text:"?"});
 	});
 }
