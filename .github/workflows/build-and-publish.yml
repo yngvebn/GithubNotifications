@@ -80,8 +80,7 @@ jobs:
           --client-secret $CLIENT_SECRET \
           --refresh-token $REFRESH_TOKEN
 
-        Publish the extension (optional - you might want to do this manually)
-        Uncomment the lines below if you want automatic publishing
+
         chrome-webstore-upload publish \
           --extension-id $EXTENSION_ID \
           --client-id $CLIENT_ID \
