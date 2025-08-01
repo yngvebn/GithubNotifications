@@ -4,6 +4,7 @@
   "description": "This extension displays an icon in Chrome indicating your open pull-requests",
   "version": "2.0.0",
   "author": "Yngve Bakken Nilsen",
+  "homepage_url": "https://github.com/yngvebn/GithubNotifications",
   "permissions": ["storage"],
   "host_permissions": ["https://api.github.com/*"],
   "content_security_policy": {
