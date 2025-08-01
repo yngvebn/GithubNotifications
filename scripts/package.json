@@ -1,0 +1,9 @@
+{
+  "name": "github-notifications-scripts",
+  "version": "1.0.0",
+  "description": "Helper scripts for Chrome Web Store publishing",
+  "scripts": {
+    "get-refresh-token": "node get-refresh-token.js"
+  },
+  "private": true
+}

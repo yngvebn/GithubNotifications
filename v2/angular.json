@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/options",
-            "index": "projects/options/src/index.html",
+            "index": "projects/options/src/options.html",
             "browser": "projects/options/src/main.ts",
             "polyfills": [
               "zone.js"
@@ -118,7 +118,9 @@
             "styles": [
               "projects/main/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "crossOrigin": "anonymous",
+            "inlineStyleLanguage": "css"
           },
           "configurations": {
             "production": {
@@ -134,7 +136,14 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                }
+              }
             },
             "development": {
               "optimization": false,

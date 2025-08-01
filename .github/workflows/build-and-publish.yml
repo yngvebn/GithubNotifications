@@ -1,0 +1,90 @@
+name: Build and Publish Chrome Extension
+
+on:
+  push:
+    branches: [ main, master, version2 ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, master, version2 ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: v2/package-lock.json
+
+    - name: Install dependencies
+      run: |
+        cd v2
+        npm ci
+
+    - name: Build extension
+      run: |
+        cd v2
+        npm run build:prod
+
+    - name: Create extension package
+      run: |
+        cd v2/dist
+        zip -r ../extension.zip .
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: extension-build
+        path: v2/extension.zip
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: extension-build
+        path: ./
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install chrome-webstore-upload-cli
+      run: npm install -g chrome-webstore-upload-cli
+
+    - name: Upload and Publish to Chrome Web Store
+      env:
+        EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+        CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      run: |
+        # Upload the extension
+        chrome-webstore-upload upload \
+          --source extension.zip \
+          --extension-id $EXTENSION_ID \
+          --client-id $CLIENT_ID \
+          --client-secret $CLIENT_SECRET \
+          --refresh-token $REFRESH_TOKEN
+
+        # Publish the extension (optional - you might want to do this manually)
+        # Uncomment the lines below if you want automatic publishing
+        # chrome-webstore-upload publish \
+        #   --extension-id $EXTENSION_ID \
+        #   --client-id $CLIENT_ID \
+        #   --client-secret $CLIENT_SECRET \
+        #   --refresh-token $REFRESH_TOKEN
