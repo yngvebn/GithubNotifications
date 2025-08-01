@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: v2
 
     steps:
     - name: Checkout code
@@ -23,18 +26,14 @@ jobs:
         cache-dependency-path: v2/package-lock.json
 
     - name: Install dependencies
-      run: |
-        cd v2
-        npm ci
+      run: npm ci
 
     - name: Build extension
-      run: |
-        cd v2
-        npm run build:prod
+      run: npm run build:prod
 
     - name: Create extension package
       run: |
-        cd v2/dist
+        cd dist
         zip -r ../extension.zip .
 
     - name: Upload build artifacts
