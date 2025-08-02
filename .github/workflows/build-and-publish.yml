@@ -28,8 +28,7 @@ jobs:
     - name: Bump version with build number
       id: version
       run: |
-        cd ../scripts
-        node bump-version-build.js ${{ github.run_number }}
+        node ../scripts/bump-version-build.js ${{ github.run_number }}
         echo "New version set using build number: ${{ github.run_number }}"
 
     - name: Install dependencies
