@@ -1,0 +1,126 @@
+name: Release Chrome Extension
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      publish_immediately:
+        description: 'Publish to Chrome Web Store immediately'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: v2/package-lock.json
+
+    - name: Install dependencies
+      run: |
+        cd v2
+        npm install
+
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+    - name: Bump version
+      id: version
+      run: |
+        cd scripts
+        NEW_VERSION=$(node bump-version.js ${{ github.event.inputs.version_type }} --git | grep "Current version:" | cut -d' ' -f3)
+        echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+        echo "::notice::Bumped version to $NEW_VERSION"
+
+    - name: Push changes and tags
+      run: |
+        git push origin master
+        git push origin --tags
+
+    - name: Build extension
+      run: |
+        cd v2
+        npm run build:prod
+
+    - name: Create extension package
+      run: |
+        cd v2/dist
+        zip -r ../extension-v${{ steps.version.outputs.new_version }}.zip .
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.version.outputs.new_version }}
+        release_name: Release v${{ steps.version.outputs.new_version }}
+        body: |
+          ## Chrome Extension Release v${{ steps.version.outputs.new_version }}
+
+          ### Changes
+          - Version bump to ${{ steps.version.outputs.new_version }}
+          - Built from commit ${{ github.sha }}
+
+          ### Installation
+          1. Download the extension package below
+          2. Unzip the file
+          3. Load the unpacked extension in Chrome Developer Mode
+
+          Or wait for automatic Chrome Web Store deployment.
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: v2/extension-v${{ steps.version.outputs.new_version }}.zip
+        asset_name: github-notifications-v${{ steps.version.outputs.new_version }}.zip
+        asset_content_type: application/zip
+
+    - name: Upload to Chrome Web Store
+      if: ${{ github.event.inputs.publish_immediately == 'true' }}
+      env:
+        EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+        CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      run: |
+        npm install -g chrome-webstore-upload-cli
+        chrome-webstore-upload upload \
+          --source v2/extension-v${{ steps.version.outputs.new_version }}.zip \
+          --extension-id $EXTENSION_ID \
+          --client-id $CLIENT_ID \
+          --client-secret $CLIENT_SECRET \
+          --refresh-token $REFRESH_TOKEN
+
+        chrome-webstore-upload publish \
+          --extension-id $EXTENSION_ID \
+          --client-id $CLIENT_ID \
+          --client-secret $CLIENT_SECRET \
+          --refresh-token $REFRESH_TOKEN

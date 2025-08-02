@@ -25,6 +25,13 @@ jobs:
         cache: 'npm'
         cache-dependency-path: v2/package-lock.json
 
+    - name: Bump version with build number
+      id: version
+      run: |
+        cd ../scripts
+        node bump-version-build.js ${{ github.run_number }}
+        echo "New version set using build number: ${{ github.run_number }}"
+
     - name: Install dependencies
       run: npm install
 
@@ -34,13 +41,16 @@ jobs:
     - name: Create extension package
       run: |
         cd dist
-        zip -r ../extension.zip .
+        VERSION=$(node -p "require('../manifest.json').version")
+        zip -r ../extension-v${VERSION}.zip .
+        echo "version=${VERSION}" >> $GITHUB_OUTPUT
+      id: package
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: extension-build
-        path: v2/extension.zip
+        path: v2/extension-v${{ steps.package.outputs.version }}.zip
 
   publish:
     needs: build
@@ -72,14 +82,17 @@ jobs:
         CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
       run: |
+        # Find the extension file (it will be named extension-v*.zip)
+        EXTENSION_FILE=$(ls extension-v*.zip | head -n1)
+        echo "Found extension file: $EXTENSION_FILE"
+
         # Upload the extension
         chrome-webstore-upload upload \
-          --source extension.zip \
+          --source $EXTENSION_FILE \
           --extension-id $EXTENSION_ID \
           --client-id $CLIENT_ID \
           --client-secret $CLIENT_SECRET \
           --refresh-token $REFRESH_TOKEN
-
 
         chrome-webstore-upload publish \
           --extension-id $EXTENSION_ID \

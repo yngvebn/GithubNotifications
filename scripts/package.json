@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Helper scripts for Chrome Web Store publishing",
   "scripts": {
-    "get-refresh-token": "node get-refresh-token.js"
+    "get-refresh-token": "node get-refresh-token.js",
+    "bump-version": "node bump-version.js",
+    "bump:patch": "node bump-version.js patch",
+    "bump:minor": "node bump-version.js minor",
+    "bump:major": "node bump-version.js major"
   },
   "private": true
 }
