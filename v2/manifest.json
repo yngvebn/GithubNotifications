@@ -5,7 +5,7 @@
   "version": "2.0.0",
   "author": "Yngve Bakken Nilsen",
   "homepage_url": "https://github.com/yngvebn/GithubNotifications",
-  "permissions": ["storage"],
+  "permissions": ["storage", "alarms"],
   "host_permissions": ["https://api.github.com/*"],
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com;"
