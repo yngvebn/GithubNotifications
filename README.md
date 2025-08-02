@@ -8,6 +8,10 @@ https://chrome.google.com/webstore/detail/github-notifications/mpieedhmialhnfbpd
 ### Version 2 (Current)
 The current version is built with Angular and located in the `v2/` directory.
 
+
+
+
+
 #### Building the Extension
 ```bash
 cd v2
