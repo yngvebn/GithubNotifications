@@ -57,6 +57,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4200
+          },
           "configurations": {
             "production": {
               "buildTarget": "options:build:production"
@@ -113,6 +116,11 @@
               {
                 "glob": "**/*",
                 "input": "projects/main/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/main/src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
@@ -155,6 +163,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4201
+          },
           "configurations": {
             "production": {
               "buildTarget": "main:build:production"
@@ -180,12 +191,47 @@
               {
                 "glob": "**/*",
                 "input": "projects/main/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/main/src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
               "projects/main/src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/main/.storybook",
+            "browserTarget": "main:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/main"
+            ],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/main/.storybook",
+            "browserTarget": "main:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/main"
+            ],
+            "outputDir": "dist/storybook/main"
           }
         }
       }

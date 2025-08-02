@@ -17,6 +17,7 @@ export interface PullRequest {
   number: string;
   createdAt: string;
   url: string;
+  draft: boolean;
   repository: {
     id: number;
     name: string;
@@ -34,7 +35,7 @@ export class GitHubService {
   private http = inject(HttpClient);
 
   async getConfig(): Promise<GitHubConfig | null> {
-    console.log('🔧 GitHubService: Getting config from Chrome storage...');
+    console.log('🔧 GitHubService: Getting config from storage...');
     try {
       if (typeof chrome !== 'undefined' && chrome.storage) {
         console.log('✅ GitHubService: Chrome storage available');
@@ -44,8 +45,11 @@ export class GitHubService {
         console.log('✅ GitHubService: Parsed config:', config ? 'Config found' : 'No config found');
         return config;
       } else {
-        console.warn('⚠️ GitHubService: Chrome storage not available');
-        return null;
+        console.warn('⚠️ GitHubService: Chrome storage not available, falling back to localStorage');
+        const configStr = localStorage.getItem('github_config');
+        const config = configStr ? JSON.parse(configStr) : null;
+        console.log('✅ GitHubService: localStorage config:', config ? 'Config found' : 'No config found');
+        return config;
       }
     } catch (error) {
       console.error('❌ GitHubService: Error getting config:', error);
@@ -56,14 +60,18 @@ export class GitHubService {
   async saveConfig(config: GitHubConfig): Promise<void> {
     try {
       if (typeof chrome !== 'undefined' && chrome.storage) {
+        console.log('💾 GitHubService: Saving config to Chrome storage');
         await chrome.storage.local.set({ github_config: config });
         // Notify background script that config was updated
         if (chrome.runtime) {
           chrome.runtime.sendMessage({ type: 'CONFIG_UPDATED' });
         }
+      } else {
+        console.log('💾 GitHubService: Saving config to localStorage');
+        localStorage.setItem('github_config', JSON.stringify(config));
       }
     } catch (error) {
-      console.error('Error saving config:', error);
+      console.error('❌ GitHubService: Error saving config:', error);
       throw error;
     }
   }
@@ -147,6 +155,7 @@ export class GitHubService {
         number: `#${prResponse.number}`,
         createdAt: timeAgo,
         url: prResponse.html_url,
+        draft: prResponse.draft || false,
         repository: {
           id: prResponse.head.repo.id,
           name: prResponse.head.repo.name
@@ -158,6 +167,9 @@ export class GitHubService {
       };
 
       console.log('✅ GitHubService: Successfully mapped PR:', mappedPR);
+      if (mappedPR.draft) {
+        console.log('📝 GitHubService: PR is a draft:', mappedPR.title);
+      }
       return mappedPR;
     } catch (error) {
       console.error('❌ GitHubService: Error mapping pull request:', error);
@@ -169,6 +181,7 @@ export class GitHubService {
         number: `#${item.number}`,
         createdAt: 'unknown',
         url: item.html_url,
+        draft: item.draft || false,
         repository: {
           id: 0,
           name: 'Unknown'

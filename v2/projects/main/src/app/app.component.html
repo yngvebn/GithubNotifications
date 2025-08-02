@@ -1,60 +1,75 @@
 <div class="github-notifications">
-  <div class="header">
+  <div class="header" [class.header-compact]="config && !loading && !error">
     <h3>GitHub Pull Requests</h3>
     <button class="options-btn" (click)="openOptions()" title="Options">⚙️</button>
   </div>
 
   <!-- Loading state -->
-  <div *ngIf="loading" class="loading">
-    <div class="spinner"></div>
-    <p>Loading pull requests...</p>
-  </div>
+  @if (loading) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Loading pull requests...</p>
+    </div>
+  }
 
   <!-- Error state -->
-  <div *ngIf="error && !loading" class="error">
-    <p>{{ error }}</p>
-    <button (click)="openOptions()">Open Options</button>
-  </div>
+  @if (error && !loading) {
+    <div class="error">
+      <p>{{ error }}</p>
+      <button (click)="openOptions()">Open Options</button>
+    </div>
+  }
 
   <!-- No configuration -->
-  <div *ngIf="!config && !loading && !error" class="no-config">
-    <h4>Missing configuration</h4>
-    <p>Please provide your GitHub token in Options</p>
-    <button (click)="openOptions()">Open Options</button>
-  </div>
+  @if (!config && !loading && !error) {
+    <div class="no-config">
+      <h4>Missing configuration</h4>
+      <p>Please provide your GitHub token in Options</p>
+      <button (click)="openOptions()">Open Options</button>
+    </div>
+  }
 
   <!-- Pull requests -->
-  <div *ngIf="config && !loading && !error" class="pull-requests">
-    <div *ngIf="pullRequests.length === 0" class="no-prs">
-      <p>No open pull requests found! 🎉</p>
+  @if (config && !loading && !error) {
+    <div class="pull-requests">
+      @if (pullRequests.length === 0) {
+        <div class="no-prs">
+          <p>No open pull requests found! 🎉</p>
+        </div>
+      }
+      @for (repoName of getRepositoryNames(); track repoName) {
+        <div class="repository-group">
+          <div class="repository-name">{{ repoName }}</div>
+          @for (pr of groupedPullRequests[repoName]; track pr) {
+            <div
+              class="pull-request"
+              [class.pull-request-draft]="pr.draft"
+              (click)="openPullRequest(pr)"
+              >
+              <div class="pr-icon">
+                <img src="assets/icon_16.png" alt="PR" />
+              </div>
+              <div class="pr-info">
+                <div class="pr-title">
+                  {{ pr.title }}
+                  @if (pr.draft) {
+                    <span class="draft-badge">Draft</span>
+                  }
+                </div>
+                <div class="pr-summary">
+                  <span class="pr-number">{{ pr.number }}</span>
+                  opened
+                  <span class="pr-opened">{{ pr.createdAt }}</span>
+                  by
+                  <span class="pr-opened-by">{{ pr.openedBy.name }}</span>
+                </div>
+              </div>
+              <div class="pr-avatar">
+                <img [src]="pr.openedBy.avatar" [alt]="pr.openedBy.name" />
+              </div>
+            </div>
+          }
+        </div>
+      }
     </div>
-
-    <div *ngFor="let repoName of getRepositoryNames()" class="repository-group">
-      <div class="repository-name">{{ repoName }}</div>
-
-      <div
-        *ngFor="let pr of groupedPullRequests[repoName]"
-        class="pull-request"
-        (click)="openPullRequest(pr)"
-      >
-        <div class="pr-icon">
-          <img src="assets/icon_16.png" alt="PR" />
-        </div>
-
-        <div class="pr-info">
-          <div class="pr-title">{{ pr.title }}</div>
-          <div class="pr-summary">
-            <span class="pr-number">{{ pr.number }}</span>
-            opened
-            <span class="pr-opened">{{ pr.createdAt }}</span>
-            by
-            <span class="pr-opened-by">{{ pr.openedBy.name }}</span>
-          </div>
-        </div>
-
-        <div class="pr-avatar">
-          <img [src]="pr.openedBy.avatar" [alt]="pr.openedBy.name" />
-        </div>
-      </div>
-    </div>
-</div>
+  }

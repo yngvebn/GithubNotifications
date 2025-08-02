@@ -1,0 +1,390 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-e418f9bacb23ffb4bf23c9efaf1209b45b735d96bd751d27b11be8b11891067301ed3ce81a884919d1a3bb96bbd84e491201f0c33147bb7a5d6a46982a2a7865",
+            "file": "projects/main/src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "config",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "GitHubConfig | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "destroy$",
+                    "defaultValue": "new Subject<void>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "error",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                },
+                {
+                    "name": "githubService",
+                    "defaultValue": "inject(GitHubService)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "groupedPullRequests",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "loading",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
+                },
+                {
+                    "name": "pullRequests",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "PullRequest[]",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getRepositoryNames",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "string[]",
+                    "typeParameters": [],
+                    "line": 165,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "groupPullRequests",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 103,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "loadConfig",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 44,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123,
+                        134
+                    ]
+                },
+                {
+                    "name": "loadPullRequests",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 55,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 39,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 26,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        134
+                    ]
+                },
+                {
+                    "name": "openOptions",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 159,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "openPullRequest",
+                    "args": [
+                        {
+                            "name": "pr",
+                            "type": "PullRequest",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 151,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "pr",
+                            "type": "PullRequest",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "processPullRequest",
+                    "args": [
+                        {
+                            "name": "pr",
+                            "type": "PullRequest",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Promise<PullRequest>",
+                    "typeParameters": [],
+                    "line": 98,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123,
+                        134
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "pr",
+                            "type": "PullRequest",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "startPeriodicRefresh",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 116,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, inject, OnDestroy, OnInit } from '@angular/core';\r\nimport { GitHubConfig, GitHubService, PullRequest } from '@shared/services';\r\nimport { Subject, takeUntil, timer } from 'rxjs';\r\nimport { switchMap } from 'rxjs/operators';\r\n\r\n// Chrome API availability check\r\ndeclare let chrome: any;\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  imports: [CommonModule],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.css'\r\n})\r\nexport class AppComponent implements OnInit, OnDestroy {\r\n  private destroy$ = new Subject<void>();\r\n  private githubService = inject(GitHubService);\r\n\r\n  config: GitHubConfig | null = null;\r\n  pullRequests: PullRequest[] = [];\r\n  groupedPullRequests: { [key: string]: PullRequest[] } = {};\r\n  loading = true;\r\n  error: string | null = null;\r\n\r\n  async ngOnInit() {\r\n    console.log('🚀 AppComponent: Initializing...');\r\n    await this.loadConfig();\r\n    if (this.config) {\r\n      console.log('✅ AppComponent: Config loaded, starting PR fetch', this.config);\r\n      this.loadPullRequests();\r\n      this.startPeriodicRefresh();\r\n    } else {\r\n      console.warn('⚠️ AppComponent: No config found, stopping here');\r\n      this.loading = false;\r\n    }\r\n  }\r\n\r\n  ngOnDestroy() {\r\n    this.destroy$.next();\r\n    this.destroy$.complete();\r\n  }\r\n\r\n  private async loadConfig() {\r\n    console.log('🔧 AppComponent: Loading config...');\r\n    try {\r\n      this.config = await this.githubService.getConfig();\r\n      console.log('✅ AppComponent: Config loaded successfully:', this.config ? 'Config found' : 'No config');\r\n    } catch (error) {\r\n      console.error('❌ AppComponent: Error loading config:', error);\r\n      this.error = 'Failed to load configuration';\r\n    }\r\n  }\r\n\r\n  private loadPullRequests() {\r\n    if (!this.config) {\r\n      console.warn('⚠️ AppComponent: No config available, cannot load PRs');\r\n      return;\r\n    }\r\n\r\n    console.log('📥 AppComponent: Starting to load pull requests...');\r\n    this.loading = true;\r\n    this.error = null;\r\n\r\n    this.githubService.getPullRequests(this.config)\r\n      .pipe(takeUntil(this.destroy$))\r\n      .subscribe({\r\n        next: async (pullRequests) => {\r\n          console.log('📋 AppComponent: Received pull requests from service:', pullRequests.length, 'items');\r\n          console.log('📋 AppComponent: Raw pull requests:', pullRequests);\r\n\r\n          // Process each pull request to get detailed information\r\n          const processedPRs: PullRequest[] = [];\r\n          for (const pr of pullRequests) {\r\n            try {\r\n              const detailedPR = await this.processPullRequest(pr);\r\n              processedPRs.push(detailedPR);\r\n            } catch (error) {\r\n              console.error('❌ AppComponent: Error processing PR:', error);\r\n              processedPRs.push(pr); // Use basic PR data if detailed processing fails\r\n            }\r\n          }\r\n\r\n          console.log('✅ AppComponent: Processed pull requests:', processedPRs.length, 'items');\r\n          this.pullRequests = processedPRs;\r\n          this.groupPullRequests();\r\n          console.log('📊 AppComponent: Grouped pull requests:', this.groupedPullRequests);\r\n          this.loading = false;\r\n        },\r\n        error: (error) => {\r\n          console.error('❌ AppComponent: Error loading pull requests:', error);\r\n          this.error = 'Failed to load pull requests';\r\n          this.loading = false;\r\n        }\r\n      });\r\n  }\r\n\r\n  private async processPullRequest(pr: PullRequest): Promise<PullRequest> {\r\n    // The GitHub service already processes the PR details\r\n    return pr;\r\n  }\r\n\r\n  private groupPullRequests() {\r\n    console.log('📊 AppComponent: Grouping pull requests...');\r\n    this.groupedPullRequests = this.pullRequests.reduce((groups, pr) => {\r\n      const repoName = pr.repository.name;\r\n      if (!groups[repoName]) {\r\n        groups[repoName] = [];\r\n      }\r\n      groups[repoName].push(pr);\r\n      return groups;\r\n    }, {} as { [key: string]: PullRequest[] });\r\n    console.log('📊 AppComponent: Grouped result:', this.groupedPullRequests);\r\n  }\r\n\r\n  private startPeriodicRefresh() {\r\n    // Refresh every minute\r\n    timer(60000, 60000)\r\n      .pipe(\r\n        takeUntil(this.destroy$),\r\n        switchMap(() => {\r\n          if (this.config) {\r\n            return this.githubService.getPullRequests(this.config);\r\n          }\r\n          return [];\r\n        })\r\n      )\r\n      .subscribe({\r\n        next: async (pullRequests) => {\r\n          // Process pull requests\r\n          const processedPRs: PullRequest[] = [];\r\n          for (const pr of pullRequests) {\r\n            try {\r\n              const detailedPR = await this.processPullRequest(pr);\r\n              processedPRs.push(detailedPR);\r\n            } catch (error) {\r\n              console.error('Error processing PR:', error);\r\n              processedPRs.push(pr);\r\n            }\r\n          }\r\n\r\n          this.pullRequests = processedPRs;\r\n          this.groupPullRequests();\r\n        },\r\n        error: (error) => {\r\n          console.error('Error during periodic refresh:', error);\r\n        }\r\n      });\r\n  }\r\n\r\n  openPullRequest(pr: PullRequest) {\r\n    if (typeof chrome !== 'undefined' && chrome.tabs) {\r\n      chrome.tabs.create({ url: pr.url });\r\n    } else {\r\n      window.open(pr.url, '_blank');\r\n    }\r\n  }\r\n\r\n  openOptions() {\r\n    if (typeof chrome !== 'undefined' && chrome.runtime) {\r\n      chrome.runtime.openOptionsPage();\r\n    }\r\n  }\r\n\r\n  getRepositoryNames(): string[] {\r\n    return Object.keys(this.groupedPullRequests);\r\n  }\r\n}\r\n",
+            "styleUrl": "./app.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "implements": [
+                "OnInit",
+                "OnDestroy"
+            ],
+            "templateData": "<div class=\"github-notifications\">\r\n  <div class=\"header\">\r\n    <h3>GitHub Pull Requests</h3>\r\n    <button class=\"options-btn\" (click)=\"openOptions()\" title=\"Options\">⚙️</button>\r\n  </div>\r\n\r\n  <!-- Loading state -->\r\n  <div *ngIf=\"loading\" class=\"loading\">\r\n    <div class=\"spinner\"></div>\r\n    <p>Loading pull requests...</p>\r\n  </div>\r\n\r\n  <!-- Error state -->\r\n  <div *ngIf=\"error && !loading\" class=\"error\">\r\n    <p>{{ error }}</p>\r\n    <button (click)=\"openOptions()\">Open Options</button>\r\n  </div>\r\n\r\n  <!-- No configuration -->\r\n  <div *ngIf=\"!config && !loading && !error\" class=\"no-config\">\r\n    <h4>Missing configuration</h4>\r\n    <p>Please provide your GitHub token in Options</p>\r\n    <button (click)=\"openOptions()\">Open Options</button>\r\n  </div>\r\n\r\n  <!-- Pull requests -->\r\n  <div *ngIf=\"config && !loading && !error\" class=\"pull-requests\">\r\n    <div *ngIf=\"pullRequests.length === 0\" class=\"no-prs\">\r\n      <p>No open pull requests found! 🎉</p>\r\n    </div>\r\n\r\n    <div *ngFor=\"let repoName of getRepositoryNames()\" class=\"repository-group\">\r\n      <div class=\"repository-name\">{{ repoName }}</div>\r\n\r\n      <div\r\n        *ngFor=\"let pr of groupedPullRequests[repoName]\"\r\n        class=\"pull-request\"\r\n        (click)=\"openPullRequest(pr)\"\r\n      >\r\n        <div class=\"pr-icon\">\r\n          <img src=\"assets/icon_16.png\" alt=\"PR\" />\r\n        </div>\r\n\r\n        <div class=\"pr-info\">\r\n          <div class=\"pr-title\">{{ pr.title }}</div>\r\n          <div class=\"pr-summary\">\r\n            <span class=\"pr-number\">{{ pr.number }}</span>\r\n            opened\r\n            <span class=\"pr-opened\">{{ pr.createdAt }}</span>\r\n            by\r\n            <span class=\"pr-opened-by\">{{ pr.openedBy.name }}</span>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"pr-avatar\">\r\n          <img [src]=\"pr.openedBy.avatar\" [alt]=\"pr.openedBy.name\" />\r\n        </div>\r\n      </div>\r\n    </div>\r\n</div>\r\n"
+        }
+    ],
+    "modules": [],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "appConfig",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/main/src/app/app.config.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "ApplicationConfig",
+                "defaultValue": "{\r\n  providers: [\r\n    provideZoneChangeDetection({ eventCoalescing: true }),\r\n    provideHttpClient()\r\n  ]\r\n}"
+            },
+            {
+                "name": "chrome",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/main/src/app/app.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "any"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "projects/main/src/app/app.config.ts": [
+                {
+                    "name": "appConfig",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/main/src/app/app.config.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ApplicationConfig",
+                    "defaultValue": "{\r\n  providers: [\r\n    provideZoneChangeDetection({ eventCoalescing: true }),\r\n    provideHttpClient()\r\n  ]\r\n}"
+                }
+            ],
+            "projects/main/src/app/app.component.ts": [
+                {
+                    "name": "chrome",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/main/src/app/app.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": [],
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "projects/main/src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/18",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/main/src/app/app.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "chrome",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/main/src/app/app.config.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "appConfig",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}

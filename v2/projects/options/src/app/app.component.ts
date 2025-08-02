@@ -1,24 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { GitHubConfig, GitHubService } from '@shared/services';
 
 // Chrome API availability check
 declare let chrome: any;
 
-interface GitHubConfig {
-  username: string;
-  token: string;
-}
-
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  private http = inject(HttpClient);
+  private githubService = inject(GitHubService);
 
   config: GitHubConfig = {
     username: '',
@@ -35,11 +30,9 @@ export class AppComponent implements OnInit {
 
   private async loadConfig() {
     try {
-      if (typeof chrome !== 'undefined' && chrome.storage) {
-        const result = await chrome.storage.local.get(['github_config']);
-        if (result.github_config) {
-          this.config = { ...result.github_config };
-        }
+      const loadedConfig = await this.githubService.getConfig();
+      if (loadedConfig) {
+        this.config = { ...loadedConfig };
       }
     } catch (error) {
       console.error('Error loading config:', error);
@@ -57,24 +50,13 @@ export class AppComponent implements OnInit {
 
     try {
       // Validate token by fetching user info
-      const headers = new HttpHeaders({
-        'Authorization': `TOKEN ${this.config.token}`
-      });
-
-      const userResponse = await this.http.get<any>('https://api.github.com/user', { headers }).toPromise();
+      const userResponse = await this.githubService.getUserInfo(this.config.token);
 
       if (userResponse) {
         this.config.username = userResponse.login;
 
-        // Save to storage
-        if (typeof chrome !== 'undefined' && chrome.storage) {
-          await chrome.storage.local.set({ github_config: this.config });
-
-          // Notify background script
-          if (chrome.runtime) {
-            chrome.runtime.sendMessage({ type: 'CONFIG_UPDATED' });
-          }
-        }
+        // Save to storage using the shared service
+        await this.githubService.saveConfig(this.config);
 
         // Show success message
         this.displayMessage = true;

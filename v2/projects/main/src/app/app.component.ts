@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { GitHubConfig, GitHubService, PullRequest } from '@shared/services';
 import { Subject, takeUntil, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { GitHubConfig, GitHubService, PullRequest } from './services/github.service';
 
 // Chrome API availability check
 declare let chrome: any;
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
