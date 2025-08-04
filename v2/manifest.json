@@ -6,6 +6,9 @@
   "author": "Yngve Bakken Nilsen",
   "homepage_url": "https://github.com/yngvebn/GithubNotifications",
   "permissions": ["storage", "alarms"],
+  "permissions_justification": {
+    "alarms": "Required to periodically check GitHub API for new pull requests and update the extension badge every minute. The alarm ensures the badge stays current even when the service worker is inactive, providing users with real-time notification counts of their open pull requests. This background sync is essential for the extension's core functionality of displaying GitHub pull request status."
+  },
   "host_permissions": ["https://api.github.com/*"],
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com;"
