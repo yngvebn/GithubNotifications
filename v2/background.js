@@ -4,7 +4,7 @@
 const ALARM_NAME = 'github-refresh';
 
 chrome.runtime.onInstalled.addListener((details) => {
-  if (details.reason !== "install" && details.reason !== "update") return;
+  console.log('🔧 Extension installed/updated:', details.reason);
 
   // Set initial badge
   chrome.action.setBadgeText({ text: "?" });
@@ -13,6 +13,28 @@ chrome.runtime.onInstalled.addListener((details) => {
   setupPeriodicRefresh();
 
   console.log('GitHub Notifications extension installed/updated');
+});
+
+// Handle browser startup - this ensures the service worker activates on browser start
+chrome.runtime.onStartup.addListener(() => {
+  console.log('🚀 Browser started, setting up periodic refresh');
+
+  // Set up the alarm for periodic refresh
+  setupPeriodicRefresh();
+});
+
+// This is the key fix: Listen for when any alarm fires, which will wake up the service worker
+// Even if the service worker was terminated, this will revive it when the alarm fires
+chrome.alarms.onAlarm.addListener((alarm) => {
+  console.log('⏰ Alarm fired:', alarm.name);
+
+  if (alarm.name === ALARM_NAME) {
+    refreshBadge();
+  } else {
+    // If it's our alarm but service worker was restarted, ensure it's set up
+    console.log('🔄 Unknown alarm, ensuring periodic refresh is set up');
+    setupPeriodicRefresh();
+  }
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -28,21 +50,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-// Handle alarm events - this will wake up the service worker
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === ALARM_NAME) {
-    refreshBadge();
-  }
-});
-
 async function refreshBadge() {
   try {
+    // Keep the service worker alive during this operation
+    const keepAlive = setInterval(() => chrome.runtime.getPlatformInfo(), 25 * 1000);
+
     const result = await chrome.storage.local.get(['github_config']);
     const config = result.github_config;
 
     if (!config?.username || !config?.token) {
       chrome.action.setBadgeText({ text: "?" });
       chrome.action.setBadgeBackgroundColor({ color: "#9E9E9E" }); // Gray for unconfigured
+      clearInterval(keepAlive);
       return;
     }
 
@@ -57,6 +76,7 @@ async function refreshBadge() {
     if (!response.ok) {
       chrome.action.setBadgeText({ text: "!" });
       chrome.action.setBadgeBackgroundColor({ color: "#9E9E9E" }); // Gray for error
+      clearInterval(keepAlive);
       return;
     }
 
@@ -74,6 +94,8 @@ async function refreshBadge() {
     chrome.action.setBadgeBackgroundColor({ color });
 
     console.log(`🔄 Badge updated: ${count} PRs, color: ${color}`);
+
+    clearInterval(keepAlive);
 
   } catch (error) {
     console.error('❌ Error refreshing badge:', error);
@@ -98,5 +120,21 @@ function setupPeriodicRefresh() {
   console.log('🔄 Periodic refresh alarm set up');
 }
 
+// This is the KEY FIX: Check for existing alarms when service worker starts
+// This handles the case where the browser was restarted
+async function ensureAlarmExists() {
+  const existingAlarm = await chrome.alarms.get(ALARM_NAME);
+
+  if (!existingAlarm) {
+    console.log('🚨 No existing alarm found, setting up periodic refresh');
+    setupPeriodicRefresh();
+  } else {
+    console.log('✅ Existing alarm found, service worker ready');
+    // Do an immediate refresh to update the badge
+    refreshBadge();
+  }
+}
+
 // Set up the refresh cycle when the service worker starts
-setupPeriodicRefresh();
+// This runs every time the service worker is created/restarted
+ensureAlarmExists();
