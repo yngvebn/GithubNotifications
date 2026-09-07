@@ -43,3 +43,6 @@ Thumbs.db
 
 *storybook.log
 storybook-static
+
+# Packaged extension uploads
+*.zip
