@@ -73,10 +73,12 @@ jobs:
         node-version: '20'
 
     - name: Install chrome-webstore-upload-cli
-      run: npm install -g chrome-webstore-upload-cli
+      run: npm install -g chrome-webstore-upload-cli@4.0.1
 
     - name: Upload and Publish to Chrome Web Store
       env:
+        # v4 reads the OAuth credentials from the environment only; the
+        # --client-id/--client-secret/--refresh-token flags were removed.
         EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
         CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
@@ -86,16 +88,5 @@ jobs:
         EXTENSION_FILE=$(ls extension-v*.zip | head -n1)
         echo "Found extension file: $EXTENSION_FILE"
 
-        # Upload the extension
-        chrome-webstore-upload upload \
-          --source $EXTENSION_FILE \
-          --extension-id $EXTENSION_ID \
-          --client-id $CLIENT_ID \
-          --client-secret $CLIENT_SECRET \
-          --refresh-token $REFRESH_TOKEN
-
-        chrome-webstore-upload publish \
-          --extension-id $EXTENSION_ID \
-          --client-id $CLIENT_ID \
-          --client-secret $CLIENT_SECRET \
-          --refresh-token $REFRESH_TOKEN
+        # No subcommand means upload followed by publish.
+        chrome-webstore-upload --source "$EXTENSION_FILE"
