@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Github Notifications",
+  "name": "Pull Request Notifications",
   "description": "This extension displays an icon in Chrome indicating your open pull-requests",
   "version": "2.0.0",
   "author": "Yngve Bakken Nilsen",

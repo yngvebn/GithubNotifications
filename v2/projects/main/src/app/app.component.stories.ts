@@ -31,7 +31,7 @@ const meta: Meta<AppComponent> = {
     // Disable Chrome extension API warnings in Storybook
     docs: {
       description: {
-        component: 'GitHub Notifications extension popup component that displays pull requests for a configured user.'
+        component: 'Pull Request Notifications extension popup component that displays pull requests for a configured user.'
       }
     }
   }

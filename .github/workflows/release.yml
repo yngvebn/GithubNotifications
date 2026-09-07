@@ -100,7 +100,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: v2/extension-v${{ steps.version.outputs.new_version }}.zip
-        asset_name: github-notifications-v${{ steps.version.outputs.new_version }}.zip
+        asset_name: pull-request-notifications-v${{ steps.version.outputs.new_version }}.zip
         asset_content_type: application/zip
 
     - name: Upload to Chrome Web Store

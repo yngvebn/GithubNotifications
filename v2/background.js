@@ -1,4 +1,4 @@
-// Service Worker for GitHub Notifications Chrome Extension
+// Service Worker for Pull Request Notifications Chrome Extension
 // Handles badge updates and storage management
 
 const ALARM_NAME = 'github-refresh';
@@ -12,7 +12,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   // Set up the alarm for periodic refresh
   setupPeriodicRefresh();
 
-  console.log('GitHub Notifications extension installed/updated');
+  console.log('Pull Request Notifications extension installed/updated');
 });
 
 // Handle browser startup - this ensures the service worker activates on browser start
