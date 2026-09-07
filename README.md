@@ -1,12 +1,14 @@
 # Pull Request Notifications
 Chrome Extension for displaying open pull-requests in the browser
 
-> **Note:** The previous listing (`Github Notifications`) was removed from the
-> Chrome Web Store following a trademark complaint over the use of `GITHUB` in
-> the item title. The extension has been renamed and must be republished as a
-> new store item under a new extension ID -- there is no upgrade path from the
-> old item, so existing users need to reinstall. Store link to follow once the
-> new item is live.
+https://chromewebstore.google.com/detail/pull-request-notifications/aneamgfghelnopklkcdcocglnkokpmmp
+
+> **Note:** The previous listing (`Github Notifications`, item ID
+> `mpieedhmialhnfbpdhlcjnbdjdcckipd`) was removed from the Chrome Web Store
+> following a trademark complaint over the use of `GITHUB` in the item title.
+> The extension was renamed and republished as a new item with a new extension
+> ID. There is no upgrade path from the old item, so users of the old listing
+> need to install this one.
 
 ## Development
 
